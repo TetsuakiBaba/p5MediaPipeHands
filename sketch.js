@@ -4,26 +4,14 @@ const canvasCtx = canvasElement.getContext('2d');
 
 var g_landmarks = [];
 
+// ここからMediaPipeの記述（いじらなくてOK）
 function onResults(results) {
-  canvasCtx.save();
-  canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-  canvasCtx.drawImage(
-    results.image, 0, 0, canvasElement.width, canvasElement.height);
   if (results.multiHandLandmarks) {
     for (const landmarks of results.multiHandLandmarks) {
-      drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,
-        { color: '#00FF00', lineWidth: 5 });
-      drawLandmarks(canvasCtx, landmarks, { color: '#FF0000', lineWidth: 2 });
       g_landmarks = landmarks;
     }
   }
-  canvasCtx.restore();
-
-
-
-
 }
-
 const hands = new Hands({
   locateFile: (file) => {
     return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
@@ -45,6 +33,8 @@ const camera = new Camera(videoElement, {
   height: 720
 });
 camera.start();
+// ここまでMediaPipeの記述（いじらなくてOK）
+
 
 var video;
 var cam;
@@ -56,18 +46,10 @@ function setup() {
   video = createCapture(VIDEO);
   video.size(640, 360);
   video.hide();
-
-  //cam = createCamera();
-  //frustum(0, 0, 0, 0, 0.1, 200);
 }
 
 function draw() {
   background(127);
-
-  // cam.lookAt(0, 0, 0);
-  // cam.setPosition(25, 25, 25);
-
-  // put drawing code here
 
   image(video, 0, 0);
 
