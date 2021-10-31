@@ -4,12 +4,15 @@ const canvasCtx = canvasElement.getContext('2d');
 
 var g_landmarks = [];
 
-// ここからMediaPipeの記述（いじらなくてOK）
+// ここからMediaPipeの記述
 function onResults(results) {
   if (results.multiHandLandmarks) {
     for (const landmarks of results.multiHandLandmarks) {
       g_landmarks = landmarks;
     }
+
+    // 指文字認識をさせるタイミングはここでやるのがいいと思う．
+
   }
 }
 const hands = new Hands({
@@ -33,7 +36,7 @@ const camera = new Camera(videoElement, {
   height: 720
 });
 camera.start();
-// ここまでMediaPipeの記述（いじらなくてOK）
+// ここまでMediaPipeの記述
 
 
 var video;
@@ -51,7 +54,7 @@ function setup() {
 function draw() {
   background(127);
 
-  //  image(video, 0, 0);
+  image(video, 0, 0);
 
   if (g_landmarks.length > 0) {
     beginShape(POINTS);
