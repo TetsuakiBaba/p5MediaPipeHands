@@ -51,7 +51,7 @@ function setup() {
 function draw() {
   background(127);
 
-  image(video, 0, 0);
+  //  image(video, 0, 0);
 
   if (g_landmarks.length > 0) {
     beginShape(POINTS);
